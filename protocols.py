@@ -5,6 +5,9 @@ class Bomb(Protocol):
     def __init__(self, timer: int) -> None:
         ...
     
+    def __str__(self) -> str:
+        ...
+    
     def tick(self) -> None:
         ...
     

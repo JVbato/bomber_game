@@ -1,0 +1,1 @@
+type map_loc = tuple[int, int]

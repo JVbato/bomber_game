@@ -1,7 +1,11 @@
 from model import BomberModel
 from view import BomberView
-from time import sleep
-from players import PlayerAction
+from random import Random
+from bombs import BasicBomb
+
+
+def clear():
+    print("\033c", end="")
 
 class BomberController:
     def __init__(self, model: BomberModel, view: BomberView) -> None:
@@ -12,33 +16,27 @@ class BomberController:
         model = self._model
         view = self._view
 
-        view.ask_where_to_place_player()
-        model.place_player()
-        view.print_grid()
-        sleep(1)
-
-        while not model.game_over_is_true:
-            model.place_bombs()
-            view.print_grid()
-
-            chosen_action: PlayerAction = view.ask_action()
+        model.move_player((0, 0))
+        while True:
+            clear()
+            exploded = model.process_turn()
+            view.print_grid(model.grid, exploded) 
             
-            match chosen_action:
-                case PlayerAction.MOVE:
-                    model.move_turn(chosen_action)
-                
-                case PlayerAction.USE_RELIC:
-                    model.use_relic()
-                
-                case _:
-                    pass
+            if model.is_game_over:
+                break
             
+            r_add, c_add = view.ask_move()
+            if model.in_bounds(r_add, c_add):
+                model.move_player((r_add, c_add))
+
         view.win()
 
 
 if __name__ == "__main__":
-    ...
-            
+    model = BomberModel(6, 7, 10, Random(), [BasicBomb], (0, 0))
+    view = BomberView()
+    controller = BomberController(model, view)
+    controller.run()
         
                 
             

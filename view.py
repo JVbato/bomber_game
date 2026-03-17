@@ -1,21 +1,25 @@
-from players import PlayerAction
+from common_types import map_loc
+from copy import deepcopy
+
 
 class BomberView:
-    def ask_action(self) -> PlayerAction:
-        ...
+    def print_grid(self, grid: list[list[str]], explosions: set[map_loc]) -> None:
+        
+        grid_copy = deepcopy(grid)
+        for r, c in explosions:
+            grid_copy[r][c] = "x"
+        
+        for row in grid_copy:
+            print(row)
     
-    def ask_where_to_move(self) -> tuple[str, int]:
-        ...
-    
-    def ask_relic_to_use(self) -> None:
-        ...
-    
-    def print_grid(self) -> None:
-        ...
-    
-    def ask_where_to_place_player(self) -> None:
-        ...
-    
+    def ask_move(self) -> map_loc:
+        my_dic = {"A": (0, -1), "D": (0, 1), "W": (-1, 0), "S": (1, 0)}
+        shit = input("where you movin ").upper()
+        if shit in my_dic.keys():
+            return my_dic[shit]
+        else:
+            return (0, 0)
+
     def win(self) -> None:
-        ...
+        print("you won! ")
     

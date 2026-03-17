@@ -15,10 +15,11 @@ class BomberView:
     def ask_move(self) -> map_loc:
         my_dic = {"A": (0, -1), "D": (0, 1), "W": (-1, 0), "S": (1, 0)}
         shit = input("where you movin ").upper()
-        if shit in my_dic.keys():
-            return my_dic[shit]
-        else:
-            return (0, 0)
+        for x in shit:
+            if x in my_dic.keys():
+                return my_dic[x]
+        
+        return (0, 0)
 
     def win(self) -> None:
         print("you won! ")

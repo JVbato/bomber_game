@@ -1,7 +1,7 @@
 from model import BomberModel
 from view import BomberView
 from random import Random
-from bombs import BasicBomb
+from bombs import BasicBomb, DiamondBomb
 
 
 def clear():
@@ -31,12 +31,13 @@ class BomberController:
 
         view.win()
 
-
 if __name__ == "__main__":
-    model = BomberModel(6, 7, 100, Random(), [BasicBomb], (0, 0))
+    model = BomberModel(10, 10, 100, Random(), [BasicBomb, DiamondBomb], (0, 0))
     view = BomberView()
     controller = BomberController(model, view)
     controller.run()
         
                 
-            
+
+
+

@@ -10,7 +10,7 @@ class BomberModel:
         self._max_round = max_rounds
         self._bomb_set = bomb_set
         self._player = player
-        self._turn = 1
+        self._turn = 0
         self._map: list[list[str]] = [["." for _ in range(self._cols)] for _ in range(self._rows)]
         self._indexes: list[list[map_loc]] = [[(r, c) for c in range(self._cols)] for r in range(self._rows)]
         self._curr_bombs: list[Bomb] = []
@@ -45,7 +45,8 @@ class BomberModel:
     
     def process_turn(self) -> set[map_loc]:
         if len(self._curr_bombs) <= 1:
-            self.plant_bomb(self.random_index())
+            for _ in range(self._rng.randint(0, 3)):
+                self.plant_bomb(self.random_index())
 
         explosions: set[map_loc] = set()
         placeholder: list[Bomb] = []
@@ -62,6 +63,8 @@ class BomberModel:
             self._is_game_over = True
         
         self._curr_bombs = placeholder
+        self.next_turn()
+
         return explosions
     
     def move_player(self, new_index: map_loc):

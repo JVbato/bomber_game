@@ -15,11 +15,11 @@ class BomberController:
     def run(self) -> None:
         model = self._model
         view = self._view
-
-        model.move_player((0, 0))
+        model.move_player((0, 0)) 
         while True:
-            clear()
+            
             exploded = model.process_turn()
+            view.print_turn(model.turn)
             view.print_grid(model.grid, exploded) 
             
             if model.is_game_over:
@@ -33,7 +33,7 @@ class BomberController:
 
 
 if __name__ == "__main__":
-    model = BomberModel(6, 7, 10, Random(), [BasicBomb], (0, 0))
+    model = BomberModel(6, 7, 100, Random(), [BasicBomb], (0, 0))
     view = BomberView()
     controller = BomberController(model, view)
     controller.run()

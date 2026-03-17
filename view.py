@@ -10,7 +10,7 @@ class BomberView:
             grid_copy[r][c] = "x"
         
         for row in grid_copy:
-            print(row)
+            print(*row)
     
     def ask_move(self) -> map_loc:
         my_dic = {"A": (0, -1), "D": (0, 1), "W": (-1, 0), "S": (1, 0)}
@@ -22,4 +22,7 @@ class BomberView:
 
     def win(self) -> None:
         print("you won! ")
+    
+    def print_turn(self, turn: int):
+        print(f"Turn: {turn}")
     
